@@ -1,0 +1,5 @@
+name: 'Time Format'
+type: module
+description: 'This is used to get time'
+core_version_requirement: ^8 || ^9
+package: 'Custom'

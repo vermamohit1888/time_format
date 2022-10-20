@@ -1,0 +1,23 @@
+{#
+/**
+* @file
+* Default theme implementation to display a block.
+*
+* @see template_preprocess_block()
+*
+* @ingroup themeable
+*/
+#}
+{% set classes = [
+    'clear-both',
+] %}
+<div{{ attributes.addClass(classes) }}>
+<strong>Location</strong>
+Country Code : {{ data.ldata['country_code'] }}
+Latitude : {{ data.ldata['latitude'] }}
+Longitude : {{ data.ldata['longitude'] }}
+<br>
+<strong>Time Format </strong>
+{{ data.cdata }}
+
+</div>

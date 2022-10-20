@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Contains time_format.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function time_format_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the time_format module.
+    case 'help.page.time_format':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This is used to get time') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function time_format_theme() {
+  return [
+    'timeget_block' => [
+      'variables' => [
+        'data' => NULL
+      ],
+      ],
+  ];
+}

@@ -1,0 +1,9 @@
+time_format.timeformat_form:
+  path: '/admin/config/time_format/timeformat'
+  defaults:
+    _form: '\Drupal\time_format\Form\TimeformatForm'
+    _title: 'TimeformatForm'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
