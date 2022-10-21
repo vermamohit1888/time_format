@@ -71,12 +71,17 @@ class TimegetBlock extends BlockBase implements ContainerFactoryPluginInterface 
     return $build;
   }
 
-
+  /**
+   * get time from timezone service
+   */
   public function gettime(){
     $gettime = $this->timeFormatTimezone->gettimeformat();
     return strtotime($gettime);
   }
 
+  /**
+   * get location
+   */
   public function getlocation(){
     $config = $this->configFactory->getEditable('time_format.timeformat');
     $timezone = $config->get('timezone');
@@ -91,7 +96,9 @@ class TimegetBlock extends BlockBase implements ContainerFactoryPluginInterface 
     return $locarr;
   }
 
-
+  /**
+   * get city code
+   */
   function getCitycode($str) {
     $ret = '';
     foreach (explode(' ', $str) as $word) {
