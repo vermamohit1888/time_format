@@ -12,12 +12,8 @@
     'clear-both',
 ] %}
 <div{{ attributes.addClass(classes) }}>
-<strong>Location</strong>
-Country Code : {{ data.ldata['country_code'] }}
-Latitude : {{ data.ldata['latitude'] }}
-Longitude : {{ data.ldata['longitude'] }}
-<br>
-<strong>Time Format </strong>
-{{ data.cdata }}
+<strong>{{ data.cdata|date('h:i a', data.ldata['timezone'])  }}</strong><br>
+{{ data.cdata|date('l, d F Y', data.ldata['timezone'])  }}<br>
+Time in {{ data.ldata['city'] }}, {{ data.ldata['citycode'] }},  {{ data.ldata['country'] }}
 
 </div>

@@ -1,0 +1,15 @@
+id: timeget_block
+theme: olivero
+weight: 0
+status: true
+langcode: en
+region: content
+plugin: timeget_block
+settings:
+  label: 'Timeget block'
+  provider: time_format
+  label_display: 'hidden'
+dependencies:
+  module:
+    - time_format
+visibility: {  }

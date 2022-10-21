@@ -35,7 +35,8 @@ class TimegetBlock extends BlockBase implements ContainerFactoryPluginInterface 
   */
  protected $configFactory;
 
- public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $configFactory, TimezoneService $timeFormatTimezone) {
+ public function __construct(array $configuration, $plugin_id, $plugin_definition,
+  ConfigFactoryInterface $configFactory, TimezoneService $timeFormatTimezone) {
   parent::__construct($configuration, $plugin_id, $plugin_definition);
   $this->configFactory = $configFactory;
   $this->timeFormatTimezone = $timeFormatTimezone;
@@ -73,16 +74,32 @@ class TimegetBlock extends BlockBase implements ContainerFactoryPluginInterface 
 
   public function gettime(){
     $gettime = $this->timeFormatTimezone->gettimeformat();
-    return $gettime;
+    return strtotime($gettime);
   }
 
   public function getlocation(){
     $config = $this->configFactory->getEditable('time_format.timeformat');
     $timezone = $config->get('timezone');
-    $tz = new \DateTimeZone($timezone);
-    $gl = $tz->getLocation();
-    return $gl;
+    $country = $config->get('country');
+    $city = $config->get('city');
+    $citycode = '';
+    if (preg_match('/^\S.*\S$/', $city)) {
+      $citycode = $this->getCitycode($city);
+    }
+
+    $locarr = ['timezone' => $timezone, 'country' => $country, 'city' => $city, 'citycode' => $citycode];
+    return $locarr;
   }
+
+
+  function getCitycode($str) {
+    $ret = '';
+    foreach (explode(' ', $str) as $word) {
+        $ret .= strtoupper($word[0]);
+    }
+    return $ret;
+  }
+
 
 
 
