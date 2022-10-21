@@ -19,49 +19,46 @@ use Drupal\Core\Cache\UncacheableDependencyTrait;
  *  admin_label = @Translation("Timeget block"),
  * )
  */
-class TimegetBlock extends BlockBase implements ContainerFactoryPluginInterface {
+ class TimegetBlock extends BlockBase implements ContainerFactoryPluginInterface {
   use UncacheableDependencyTrait;
 
   /**
-   * Drupal\time_format\TimezoneService definition.
-   *
-   * @var \Drupal\time_format\TimezoneService
-   */
+  * Drupal\time_format\TimezoneService definition.
+  *
+  * @var \Drupal\time_format\TimezoneService
+  */
   protected $timeFormatTimezone;
 
 
   /**
   * @var \Drupal\Core\Config\ConfigFactoryInterface
   */
- protected $configFactory;
+  protected $configFactory;
 
- public function __construct(array $configuration, $plugin_id, $plugin_definition,
+  public function __construct(array $configuration, $plugin_id, $plugin_definition,
   ConfigFactoryInterface $configFactory, TimezoneService $timeFormatTimezone) {
-  parent::__construct($configuration, $plugin_id, $plugin_definition);
-  $this->configFactory = $configFactory;
-  $this->timeFormatTimezone = $timeFormatTimezone;
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->configFactory = $configFactory;
+    $this->timeFormatTimezone = $timeFormatTimezone;
 
-}
-
-
-
+  }
 
   /**
-   * {@inheritdoc}
-   */
+  * {@inheritdoc}
+  */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-        return new static(
-          $configuration,
-          $plugin_id,
-          $plugin_definition,
-          $container->get('config.factory'),
-          $container->get('time_format.timezone')
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('config.factory'),
+      $container->get('time_format.timezone')
     );
   }
 
   /**
-   * {@inheritdoc}
-   */
+  * {@inheritdoc}
+  */
   public function build() {
     $build = [];
     \Drupal::service('page_cache_kill_switch')->trigger();
@@ -72,16 +69,16 @@ class TimegetBlock extends BlockBase implements ContainerFactoryPluginInterface 
   }
 
   /**
-   * get time from timezone service
-   */
+  * get time from timezone service
+  */
   public function gettime(){
     $gettime = $this->timeFormatTimezone->gettimeformat();
     return strtotime($gettime);
   }
 
   /**
-   * get location
-   */
+  * get location
+  */
   public function getlocation(){
     $config = $this->configFactory->getEditable('time_format.timeformat');
     $timezone = $config->get('timezone');
@@ -97,19 +94,14 @@ class TimegetBlock extends BlockBase implements ContainerFactoryPluginInterface 
   }
 
   /**
-   * get city code
-   */
+  * get city code
+  */
   function getCitycode($str) {
     $ret = '';
     foreach (explode(' ', $str) as $word) {
-        $ret .= strtoupper($word[0]);
+      $ret .= strtoupper($word[0]);
     }
     return $ret;
   }
-
-
-
-
-
 
 }
